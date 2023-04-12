@@ -3,7 +3,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import {articlesSlice} from "./index";
 
 const comb = combineReducers({
-    articles:articlesSlice
+    articles:articlesSlice,
 });
 
 const setupStore = () => configureStore({

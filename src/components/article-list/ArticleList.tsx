@@ -1,5 +1,5 @@
 import React from 'react';
-import Article from "../Article/Article";
+import Article from "../article/Article";
 import {useAppSelector} from "../../hooks";
 
 import classNames from 'classnames/bind';

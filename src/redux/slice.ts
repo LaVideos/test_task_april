@@ -1,19 +1,30 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ArticleInterface} from "../types/types";
+import {newsService} from "../services/newsService";
 
 interface ArticlesState {
     articles: ArticleInterface[];
     search:ArticleInterface|undefined;
-    pin:ArticleInterface|undefined
+    pin:ArticleInterface|undefined;
+    news:ArticleInterface[],
+    status:string,
+    error:null|string|undefined
 
 }
 
 const initialState: ArticlesState = {
+    error: undefined,
+    news: [],
+    status: "",
     articles: [],
     search: undefined,
     pin:undefined
 };
 
+const getNews = createAsyncThunk('news/getNews', async (page: number) => {
+    const response = await newsService.getNews(page);
+    return response.data.articles;
+});
 
 const articlesSlice = createSlice({
     name: 'articles',
@@ -37,9 +48,29 @@ const articlesSlice = createSlice({
         searchUserArticles(state,action:PayloadAction<string>){
             state.search = state.articles.find((article)=>article.title===action.payload||article.description===action.payload);
         }
-    }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(getNews.pending, (state) => {
+            state.status = 'loading';})
+
+            .addCase(getNews.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+
+                const newArticles = [...state.news, ...action.payload].filter((article: ArticleInterface, index: number, array: ArticleInterface[]) => {
+                    return index === array.findIndex(a => a.title === article.title);
+                });
+
+                state.news = newArticles
+
+            })
+
+            .addCase(getNews.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;});
+    },
 });
 
 export const { addArticle, removeArticle, pinArticle, unpinArticle,searchUserArticles } = articlesSlice.actions;
-
+export {getNews}
 export default articlesSlice.reducer;

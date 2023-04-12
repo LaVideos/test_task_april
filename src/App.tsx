@@ -3,7 +3,7 @@ import {Route, Routes} from 'react-router-dom';
 import './App.scss';
 import {NewsPage} from "./pages/News";
 import HomePage from "./pages/Home";
-import Header from "./components/Header/Header";
+import Header from "./components/header/Header";
 
 import classNames from 'classnames/bind';
 import styles from './App.scss';

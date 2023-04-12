@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { searchUserArticles } from "../../redux/slice";
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import Article from "../Article/Article";
+import Article from "../article/Article";
 import classNames from 'classnames/bind';
 import styles from './SearchBar.scss'
 

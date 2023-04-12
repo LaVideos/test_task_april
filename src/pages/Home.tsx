@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
-import ArticleList from "../components/ArticleList/ArticleList";
-import ArticleForm from "../components/ArticleForm/ArticleForm";
+import ArticleList from "../components/article-list/ArticleList";
+import ArticleForm from "../components/article-form/ArticleForm";
 import {useAppSelector} from "../hooks";
-import Article from "../components/Article/Article";
+import Article from "../components/article/Article";
 
 import classNames from 'classnames/bind';
 import styles from './HomePage.scss'
-import SearchBar from "../components/SearchBar/SearchBar";
+import SearchBar from "../components/search-bar/SearchBar";
 
 
 const cn = classNames.bind(styles)

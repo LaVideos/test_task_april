@@ -1,30 +1,22 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Article from "../components/Article/Article";
-import { ArticleInterface } from "../types/types";
+import {useEffect, useState} from "react";
+import Article from "../components/article/Article";
+import {ArticleInterface} from "../types/types";
 import classNames from 'classnames/bind';
 import styles from './NewsPage.scss'
+import {useAppDispatch, useAppSelector} from "../hooks";
+import {getNews} from "../redux/slice";
 
 
 const cn = classNames.bind(styles)
 
 export const NewsPage = () => {
-    const [articles, setArticles] = useState<ArticleInterface[]>([]);
+    const dispatch = useAppDispatch();
+    const {news} = useAppSelector(state => state.articles);
     const [page, setPage] = useState(1);
 
-    useEffect(() => {
-        axios
-            .get(`https://newsapi.org/v2/top-headlines?country=us&pageSize=10&page=${page}`, {
-                headers: {
-                    Authorization: "Bearer 0cfa490c78f14082a0a16a71ac9ad3bf",
-                },
-            })
-            .then((response) => {
-                const newArticles = response.data.articles;
-                setArticles((prevArticles) => [...prevArticles, ...newArticles]);
-            })
-            .catch((error) => console.log(error));
-    }, [page]);
+    useEffect(()=>{
+        dispatch(getNews(page))
+    },[page])
 
     const handleLoadMore = () => {
         setPage(page + 1);
@@ -33,7 +25,7 @@ export const NewsPage = () => {
     return (
         <div className={cn('news-page')}>
             <div className={cn('article-list')}>
-                {articles.map((article: ArticleInterface, index) => (
+                {news.map((article: ArticleInterface, index) => (
                     <Article key={index} article={article} />
                 ))}
             </div>
