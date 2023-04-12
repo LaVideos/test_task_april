@@ -1,0 +1,61 @@
+.form-container {
+  padding: 20px;
+  background: #b1d770;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  @media only screen and (min-width: 992px) {
+    width: 70%;
+  }
+
+  @media only screen and (min-width: 576px) and (max-width: 991px) {
+    width: 80%;
+  }
+
+  @media only screen and (max-width: 575px) {
+    width: 90%;
+  }
+
+
+  button {
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+
+    &:hover {
+      background-color: #3e8e41;
+    }
+  }
+
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  width: 100%;
+
+  input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  align-items: center;
+}
